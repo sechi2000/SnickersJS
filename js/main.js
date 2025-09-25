@@ -1,4 +1,4 @@
-// Escena
+// Escena 
 const scene = new THREE.Scene();
 scene.background = null;
 
@@ -28,12 +28,10 @@ loader.load(
   function (gltf) {
     const model = gltf.scene;
 
-    // Forzar materiales visibles
+    // Forzar materiales visibles si no hay
     model.traverse((child) => {
-      if (child.isMesh) {
-        if (!child.material) {
-          child.material = new THREE.MeshNormalMaterial();
-        }
+      if (child.isMesh && !child.material) {
+        child.material = new THREE.MeshNormalMaterial();
       }
     });
 
@@ -49,4 +47,22 @@ loader.load(
     camera.position.x += size / 2;
     camera.position.y += size / 3;
     camera.position.z += size / 2;
-    camera.lookAt
+    camera.lookAt(center);
+
+    // Helper de caja (debug)
+    const boxHelper = new THREE.Box3Helper(box, 0xff0000);
+    scene.add(boxHelper);
+
+    // Animación
+    function animate() {
+      requestAnimationFrame(animate);
+      model.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    }
+    animate();
+  },
+  undefined,
+  function (error) {
+    console.error("Error cargando el modelo:", error);
+  }
+);
