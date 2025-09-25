@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SnickersJS</title>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Three.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen">
+  <h1 class="text-4xl font-bold mb-6">SnickersJS</h1>
+
+  <!-- Canvas donde irá el 3D -->
+  <div class="w-full h-[500px]">
+    <canvas id="sneaker-canvas" class="w-full h-full"></canvas>
+  </div>
+
+  <p class="mt-4 text-gray-600">Demo inicial del probador 360</p>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
