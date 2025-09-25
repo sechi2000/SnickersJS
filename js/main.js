@@ -12,49 +12,41 @@ const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true 
 renderer.setSize(window.innerWidth, 500);
 
 // Luces
-const ambient = new THREE.AmbientLight(0xffffff, 0.6);
-scene.add(ambient);
+scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+dirLight.position.set(5, 10, 7.5);
+scene.add(dirLight);
 
-const light1 = new THREE.DirectionalLight(0xffffff, 1);
-light1.position.set(2, 2, 5);
-scene.add(light1);
+// Helpers (debug)
+const axesHelper = new THREE.AxesHelper(2);
+scene.add(axesHelper);
 
-const light2 = new THREE.PointLight(0xff1e56, 1, 10);
-light2.position.set(-2, 2, 3);
-scene.add(light2);
-
-const light3 = new THREE.PointLight(0x3a86ff, 1, 10);
-light3.position.set(2, -1, 3);
-scene.add(light3);
-
-// Cargar modelo
+// Loader
 const loader = new THREE.GLTFLoader();
 loader.load(
   "assets/mannequin.glb",
   function (gltf) {
     const model = gltf.scene;
 
-    // Ajustes para que siempre se vea
-    model.scale.set(0.5, 0.5, 0.5);
-    model.position.set(0, -1.5, 0);
-
+    // Forzar materiales visibles
     model.traverse((child) => {
       if (child.isMesh) {
-        child.material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+        if (!child.material) {
+          child.material = new THREE.MeshNormalMaterial();
+        }
       }
     });
 
     scene.add(model);
 
-    function animate() {
-      requestAnimationFrame(animate);
-      model.rotation.y += 0.01;
-      renderer.render(scene, camera);
-    }
-    animate();
-  },
-  undefined,
-  function (error) {
-    console.error("Error cargando el modelo:", error);
-  }
-);
+    // Calcular bounding box para encuadrar la cámara
+    const box = new THREE.Box3().setFromObject(model);
+    const size = box.getSize(new THREE.Vector3()).length();
+    const center = box.getCenter(new THREE.Vector3());
+
+    // Reposicionar cámara
+    camera.position.copy(center);
+    camera.position.x += size / 2;
+    camera.position.y += size / 3;
+    camera.position.z += size / 2;
+    camera.lookAt
