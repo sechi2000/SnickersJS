@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const now = new Date();
       const diff = EVENT_DATE - now;
       if (diff <= 0) return;
+
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const mins = Math.floor((diff / (1000 * 60)) % 60);
@@ -72,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
       portalScreen.classList.add("hidden");
       mainScreen.classList.remove("hidden");
 
-      // 🧠 Espera para montar el DOM y renderizar invitados
+      // 🧠 Espera breve y luego carga los invitados
       setTimeout(() => {
         renderGuestList();
         console.log("👑 Invitados renderizados correctamente");
@@ -107,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `).join("");
   }
 
-  // ✨ EFECTO DE PARTÍCULAS
+  // ✨ PARTÍCULAS
   createParticles("particle-background", 80);
   createParticles("main-particle-background", 50);
 
