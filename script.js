@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const errorMessage = document.getElementById("error-message");
   const enterButton = document.getElementById("enter-button");
 
-  // LOGIN
+  // 🔐 LOGIN
   unlockButton?.addEventListener("click", () => {
     const entered = passwordInput.value.trim();
     if (entered === PASSWORD) {
@@ -29,12 +29,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // CUENTA REGRESIVA
+  // ⏳ CUENTA REGRESIVA
   function startCountdown() {
     const d = document.getElementById("countdown-days");
     const h = document.getElementById("countdown-hours");
     const m = document.getElementById("countdown-minutes");
     const s = document.getElementById("countdown-seconds");
+
     function updateCountdown() {
       const now = new Date();
       const diff = EVENT_DATE - now;
@@ -43,33 +44,43 @@ document.addEventListener("DOMContentLoaded", () => {
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const mins = Math.floor((diff / (1000 * 60)) % 60);
       const secs = Math.floor((diff / 1000) % 60);
+
       d.textContent = days.toString().padStart(2, "0");
       h.textContent = hours.toString().padStart(2, "0");
       m.textContent = mins.toString().padStart(2, "0");
       s.textContent = secs.toString().padStart(2, "0");
     }
+
     updateCountdown();
     setInterval(updateCountdown, 1000);
   }
 
-  // PORTAL
+  // 🚪 PORTAL DE TRANSICIÓN
   enterButton?.addEventListener("click", () => {
+    console.log("🌌 Entrando al portal...");
+
     countdownScreen.classList.add("hidden");
     portalScreen.classList.remove("hidden");
 
     const circle = document.querySelector(".portal-circle");
     const text = document.querySelector(".portal-text");
+
     circle.classList.add("animate-portal-grow");
     text.classList.add("animate-fade-in");
 
     setTimeout(() => {
       portalScreen.classList.add("hidden");
       mainScreen.classList.remove("hidden");
-      setTimeout(renderGuestList, 300);
+
+      // 🧠 Espera para montar el DOM y renderizar invitados
+      setTimeout(() => {
+        renderGuestList();
+        console.log("👑 Invitados renderizados correctamente");
+      }, 300);
     }, 3000);
   });
 
-  // INVITADOS
+  // 👑 INVITADOS DE HONOR
   function renderGuestList() {
     const guestContainer = document.getElementById("guest-list");
     if (!guestContainer) return;
@@ -78,7 +89,13 @@ document.addEventListener("DOMContentLoaded", () => {
       { name: "Alejandro", photo: "assets/invitados/alejandro.jpg" },
       { name: "Nacho Rueda", photo: "assets/invitados/nacho_rueda.jpg" },
       { name: "Irene Murillo", photo: "assets/invitados/irene_murillo.jpg" },
-      { name: "Sofía Amezcua", photo: "assets/invitados/sofia_amezcua.jpg" }
+      { name: "Sofía Amezcua", photo: "assets/invitados/sofia_amezcua.jpg" },
+      { name: "Vicente", photo: "assets/invitados/vicente.jpg" },
+      { name: "Alex", photo: "assets/invitados/alex.jpg" },
+      { name: "Meli", photo: "assets/invitados/meli.jpg" },
+      { name: "Fausto", photo: "assets/invitados/fausto.jpg" },
+      { name: "Teresa", photo: "assets/invitados/teresa.jpg" },
+      { name: "Criss", photo: "assets/invitados/criss.jpg" }
     ];
 
     guestContainer.innerHTML = guests.map((g, i) => `
@@ -90,14 +107,23 @@ document.addEventListener("DOMContentLoaded", () => {
     `).join("");
   }
 
-  // PARTÍCULAS
+  // ✨ EFECTO DE PARTÍCULAS
   createParticles("particle-background", 80);
   createParticles("main-particle-background", 50);
 
   function createParticles(containerId, count) {
     const container = document.getElementById(containerId);
     if (!container) return;
+
     for (let i = 0; i < count; i++) {
       const particle = document.createElement("span");
       particle.classList.add("particle");
-      particle.style.top = `${Math.random() * 100}%
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.width = `${Math.random() * 3 + 1}px`;
+      particle.style.height = particle.style.width;
+      particle.style.animationDuration = `${Math.random() * 6 + 4}s`;
+      container.appendChild(particle);
+    }
+  }
+});
