@@ -1,115 +1,110 @@
-// -----------------------------
-// CONFIGURACIÓN PRINCIPAL
-// -----------------------------
-const PASSWORD = "27122000";
-const EVENT_DATE = new Date("2025-12-27T00:00:00");
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("🟣 JULS Script cargado correctamente");
 
-// Referencias a elementos
-const loginScreen = document.getElementById("login-screen");
-const countdownScreen = document.getElementById("countdown-screen");
-const portalScreen = document.getElementById("portal-screen");
-const mainScreen = document.getElementById("main-screen");
+  const PASSWORD = "27122000";
+  const EVENT_DATE = new Date("2025-12-27T00:00:00");
 
-const passwordInput = document.getElementById("password-input");
-const unlockButton = document.getElementById("unlock-button");
-const errorMessage = document.getElementById("error-message");
+  // --- Referencias a elementos ---
+  const loginScreen = document.getElementById("login-screen");
+  const countdownScreen = document.getElementById("countdown-screen");
+  const portalScreen = document.getElementById("portal-screen");
+  const mainScreen = document.getElementById("main-screen");
 
-const enterButton = document.getElementById("enter-button");
+  const passwordInput = document.getElementById("password-input");
+  const unlockButton = document.getElementById("unlock-button");
+  const errorMessage = document.getElementById("error-message");
 
-// -----------------------------
-// 1️⃣ LOGIN / DESBLOQUEO
-// -----------------------------
-unlockButton.addEventListener("click", () => {
-  const enteredPassword = passwordInput.value.trim();
+  const enterButton = document.getElementById("enter-button");
 
-  if (enteredPassword === PASSWORD) {
-    errorMessage.classList.add("hidden");
-    loginScreen.classList.add("hidden");
-    countdownScreen.classList.remove("hidden");
-    startCountdown();
-  } else {
-    errorMessage.classList.remove("hidden");
-    errorMessage.classList.add("animate-shake");
-    setTimeout(() => {
-      errorMessage.classList.remove("animate-shake");
-    }, 500);
-  }
-});
+  // --- LOG IN ---
+  unlockButton?.addEventListener("click", () => {
+    const entered = passwordInput.value.trim();
 
-// -----------------------------
-// 2️⃣ CUENTA REGRESIVA
-// -----------------------------
-function startCountdown() {
-  const daysEl = document.getElementById("countdown-days");
-  const hoursEl = document.getElementById("countdown-hours");
-  const minutesEl = document.getElementById("countdown-minutes");
-  const secondsEl = document.getElementById("countdown-seconds");
+    if (entered === PASSWORD) {
+      console.log("✅ Contraseña correcta, avanzando...");
+      errorMessage.classList.add("hidden");
+      loginScreen.classList.add("hidden");
+      countdownScreen.classList.remove("hidden");
+      startCountdown();
+    } else {
+      console.log("❌ Contraseña incorrecta");
+      errorMessage.classList.remove("hidden");
+      errorMessage.classList.add("animate-shake");
+      setTimeout(() => errorMessage.classList.remove("animate-shake"), 600);
+    }
+  });
 
-  function updateCountdown() {
-    const now = new Date();
-    const diff = EVENT_DATE - now;
+  // --- CUENTA REGRESIVA ---
+  function startCountdown() {
+    const d = document.getElementById("countdown-days");
+    const h = document.getElementById("countdown-hours");
+    const m = document.getElementById("countdown-minutes");
+    const s = document.getElementById("countdown-seconds");
 
-    if (diff <= 0) {
-      daysEl.textContent = "00";
-      hoursEl.textContent = "00";
-      minutesEl.textContent = "00";
-      secondsEl.textContent = "00";
-      return;
+    function updateCountdown() {
+      const now = new Date();
+      const diff = EVENT_DATE - now;
+
+      if (diff <= 0) {
+        d.textContent = "00";
+        h.textContent = "00";
+        m.textContent = "00";
+        s.textContent = "00";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+
+      d.textContent = String(days).padStart(2, "0");
+      h.textContent = String(hours).padStart(2, "0");
+      m.textContent = String(mins).padStart(2, "0");
+      s.textContent = String(secs).padStart(2, "0");
     }
 
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const m = Math.floor((diff / (1000 * 60)) % 60);
-    const s = Math.floor((diff / 1000) % 60);
-
-    daysEl.textContent = String(d).padStart(2, "0");
-    hoursEl.textContent = String(h).padStart(2, "0");
-    minutesEl.textContent = String(m).padStart(2, "0");
-    secondsEl.textContent = String(s).padStart(2, "0");
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
   }
 
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-}
+  // --- PORTAL DE TRANSICIÓN ---
+  enterButton?.addEventListener("click", () => {
+    console.log("🌌 Entrando al portal...");
 
-// -----------------------------
-// 3️⃣ PORTAL ANIMADO
-// -----------------------------
-enterButton.addEventListener("click", () => {
-  countdownScreen.classList.add("hidden");
-  portalScreen.classList.remove("hidden");
+    countdownScreen.classList.add("hidden");
+    portalScreen.classList.remove("hidden");
 
-  // Efecto de transición tipo "portal"
-  const circle = document.querySelector(".portal-circle");
-  const text = document.querySelector(".portal-text");
+    const circle = document.querySelector(".portal-circle");
+    const text = document.querySelector(".portal-text");
 
-  circle.classList.add("animate-portal-grow");
-  text.classList.add("animate-fade-in");
+    circle.classList.add("animate-portal-grow");
+    text.classList.add("animate-fade-in");
 
-  setTimeout(() => {
-    portalScreen.classList.add("hidden");
-    mainScreen.classList.remove("hidden");
-  }, 3000);
+    setTimeout(() => {
+      portalScreen.classList.add("hidden");
+      mainScreen.classList.remove("hidden");
+      console.log("✨ Portal completado, mostrando invitación principal");
+    }, 3000);
+  });
+
+  // --- PARTÍCULAS DE FONDO ---
+  function createParticles(containerId, count) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    for (let i = 0; i < count; i++) {
+      const particle = document.createElement("span");
+      particle.classList.add("particle");
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.width = `${Math.random() * 3 + 1}px`;
+      particle.style.height = particle.style.width;
+      particle.style.animationDuration = `${Math.random() * 5 + 3}s`;
+      container.appendChild(particle);
+    }
+  }
+
+  createParticles("particle-background", 80);
+  createParticles("main-particle-background", 50);
 });
-
-// -----------------------------
-// 4️⃣ EFECTOS DE FONDO
-// -----------------------------
-createParticles("particle-background", 80);
-createParticles("main-particle-background", 50);
-
-function createParticles(containerId, count) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-
-  for (let i = 0; i < count; i++) {
-    const particle = document.createElement("span");
-    particle.classList.add("particle");
-    particle.style.top = `${Math.random() * 100}%`;
-    particle.style.left = `${Math.random() * 100}%`;
-    particle.style.width = `${Math.random() * 3 + 1}px`;
-    particle.style.height = particle.style.width;
-    particle.style.animationDuration = `${Math.random() * 5 + 3}s`;
-    container.appendChild(particle);
-  }
-}
