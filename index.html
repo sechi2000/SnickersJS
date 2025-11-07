@@ -1,40 +1,247 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="h-full">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SnickersJS</title>
-  <!-- Tailwind CSS -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JULIA25</title>
+
+  <!-- 1. Carga de TailwindCSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Three.js -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: linear-gradient(-45deg, #ff1e56, #ffac41, #2ec4b6, #3a86ff);
-      background-size: 400% 400%;
-      animation: gradient 15s ease infinite;
+
+  <!-- 2. Carga de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap"
+    rel="stylesheet">
+
+  <!-- 3. Carga de tus estilos CSS personalizados -->
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+    // Configuración de Tailwind para usar las fuentes
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'playfair': ['"Playfair Display"', 'serif'],
+            'montserrat': ['"Montserrat"', 'sans-serif']
+          }
+        }
+      }
     }
-    @keyframes gradient {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
-  </style>
+  </script>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen text-white">
-  <div class="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl p-6 w-[90%] max-w-4xl flex flex-col items-center">
-    <h1 class="text-5xl font-extrabold tracking-tight mb-6">SnickersJS</h1>
-    
-    <!-- Canvas con marco -->
-    <div class="rounded-2xl overflow-hidden shadow-lg border border-white/20 w-full h-[500px] bg-black/40 flex items-center justify-center">
-      <canvas id="sneaker-canvas" class="w-full h-full"></canvas>
+
+<body class="bg-black text-white font-montserrat min-h-screen overflow-x-hidden">
+
+  <!-- 
+      FONDO DE PARTÍCULAS
+      Este div se usará como fondo para las primeras pantallas
+    -->
+  <div id="particle-background"></div>
+
+  <!-- 
+      PANTALLA 1: DESBLOQUEO
+    -->
+  <main id="login-screen"
+    class="min-h-screen w-full flex flex-col items-center justify-center p-4 relative z-10 transition-all duration-500">
+    <div class="flex flex-col items-center text-center max-w-lg">
+      <h1 class="font-playfair text-5xl md:text-7xl font-bold animate-pulse-glow">
+        Bienvenidos a JULIA25
+      </h1>
+
+      <p class="font-montserrat text-lg md:text-xl text-gray-300 mt-4">
+        Un espacio reservado solo para quienes realmente me conocen.
+      </p>
+
+      <div class="w-full max-w-sm mt-12">
+        <input type="password" id="password-input" placeholder="Introduce la gran fecha"
+          class="w-full px-4 py-3 bg-black bg-opacity-30 border border-gray-600 rounded-lg text-center text-white placeholder-gray-500 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 font-montserrat" />
+
+        <button id="unlock-button"
+          class="w-full mt-6 px-6 py-3 bg-gradient-to-r from-gray-700 via-gray-800 to-black border border-gray-600 rounded-lg text-lg font-montserrat font-semibold tracking-wider uppercase cursor-pointer hover:shadow-lg hover:shadow-violet-700/50 hover:scale-105 transition-all duration-300 animate-pulse-slow">
+          Desbloquear el futuro
+        </button>
+      </div>
+
+      <p id="error-message" class="mt-4 text-red-400 font-montserrat hidden">
+        Mmm... esa no es la fecha correcta. ¿Seguros que me conocen tanto? 😉
+      </p>
+
+      <p class="mt-8 text-gray-500 font-montserrat italic">
+        Pista: Es una fecha que siempre celebramos juntos... 💫
+      </p>
     </div>
+  </main>
 
-    <p class="mt-6 text-lg text-white">🚀 Demo inicial del probador 360 con estilo Wow Concept</p>
-  </div>
+  <!-- 
+      PANTALLA 2: CUENTA REGRESIVA
+    -->
+  <section id="countdown-screen"
+    class="min-h-screen w-full flex-col items-center justify-center p-4 relative z-10 hidden">
+    <div class="flex flex-col items-center text-center">
+      <h2 class="font-playfair text-4xl md:text-5xl font-bold mb-12">
+        Cuenta regresiva hacia el día épico
+      </h2>
 
-  <script src="js/main.js"></script>
+      <div class="flex space-x-3 md:space-x-6">
+        <!-- Cajas de la cuenta regresiva -->
+        <div class="countdown-box">
+          <span id="countdown-days" class="countdown-value">00</span>
+          <span class="countdown-label">Días</span>
+        </div>
+        <span class="countdown-separator">:</span>
+        <div class="countdown-box">
+          <span id="countdown-hours" class="countdown-value">00</span>
+          <span class="countdown-label">Horas</span>
+        </div>
+        <span class="countdown-separator">:</span>
+        <div class="countdown-box">
+          <span id="countdown-minutes" class="countdown-value">00</span>
+          <span class="countdown-label">Min.</span>
+        </div>
+        <span class="countdown-separator">:</span>
+        <div class="countdown-box">
+          <span id="countdown-seconds" class="countdown-value">00</span>
+          <span class="countdown-label">Seg.</span>
+        </div>
+      </div>
+
+      <button id="enter-button"
+        class="mt-16 px-8 py-3 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-lg text-lg font-montserrat font-semibold tracking-wider uppercase cursor-pointer hover:shadow-lg hover:shadow-violet-500/50 hover:scale-105 transition-all duration-300">
+        Entrar al universo JULIA25
+      </button>
+    </div>
+  </section>
+
+  <!-- 
+      PANTALLA 3: PORTAL DE TRANSICIÓN
+    -->
+  <section id="portal-screen" class="fixed inset-0 z-50 flex items-center justify-center overflow-hidden hidden">
+    <div class="portal-background"></div>
+    <div class="portal-circle"></div>
+    <p class="portal-text">Accediendo al universo JULIA25...</p>
+  </section>
+
+  <!-- 
+      PANTALLA 4: INVITACIÓN PRINCIPAL
+    -->
+  <section id="main-screen" class="w-full text-white font-montserrat hidden">
+    <!-- Encabezado -->
+    <header
+      class="w-full min-h-[70vh] flex flex-col items-center justify-center text-center p-4 relative overflow-hidden">
+      <!-- El fondo de partículas se aplica aquí también con CSS -->
+      <div id="main-particle-background"></div>
+      <div class="z-10">
+        <h1 class="font-playfair text-7xl md:text-9xl font-bold text-white animate-pulse-glow">
+          JULIA25
+        </h1>
+        <p class="text-lg md:text-2xl text-gray-300 mt-4 max-w-2xl">
+          Una noche para recordar. Un momento para celebrar. Un universo que se abrirá solo una vez.
+        </p>
+        <div class="w-32 h-0.5 bg-white mx-auto mt-8 animate-expand"></div>
+      </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="bg-black z-10 relative">
+
+      <!-- Invitados de Honor -->
+      <section class="w-full max-w-5xl mx-auto py-16 px-4">
+        <h2 class="font-playfair text-4xl md:text-5xl text-center font-bold mb-12">
+          👑 Invitados de Honor
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          <!-- Lista de invitados generada -->
+          <script>
+            const guests = [
+              { name: 'Alejandro', plusOne: 'Novio de Julia (+1 incluido)' },
+              { name: 'Nacho Rueda', plusOne: '+1 libre' },
+              { name: 'Masca', plusOne: '+1 libre' },
+              { name: 'Mafer', plusOne: '+1 libre' },
+              { name: 'Gabi (Prima)', plusOne: '+1 libre' },
+              { name: 'Vicente (Primo)', plusOne: '+1 libre' },
+              { name: 'Alex', plusOne: '+1 libre' },
+              { name: 'Nacho Moral', plusOne: '+1 libre' },
+              { name: 'Irene (novia de Jaime)', plusOne: 'pareja vinculada' },
+              { name: 'Jaime', plusOne: 'pareja vinculada' },
+              { name: 'Danii Rovi', plusOne: '+1 libre' },
+              { name: 'Irene Murillo', plusOne: '+1 libre' },
+              { name: 'Sofía Amezcua', plusOne: '+1 libre' },
+              { name: 'Criss', plusOne: '+1 libre' },
+              { name: 'Teresa', plusOne: '+1 libre' },
+              { name: 'Sofía González', plusOne: '+1 libre' },
+              { name: 'Fausto', plusOne: '+1 libre' },
+              { name: 'Meli', plusOne: '+1 libre' },
+              { name: 'Frida', plusOne: 'sin +1' },
+              { name: 'Patri', plusOne: 'sin +1' },
+            ];
+
+            guests.forEach(guest => {
+              document.write(`
+                                <div class="p-4 border border-gray-700 rounded-lg text-center transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-violet-500/40 hover:border-violet-400">
+                                    <h3 class="font-playfair text-xl font-semibold">${guest.name}</h3>
+                                    <p class="text-sm text-gray-400 mt-1">${guest.plusOne}</p>
+                                </div>
+                            `);
+            });
+          </script>
+        </div>
+      </section>
+
+      <!-- El Lugar -->
+      <section class="w-full max-w-5xl mx-auto py-16 px-4">
+        <h2 class="font-playfair text-4xl md:text-5xl text-center font-bold mb-12">
+          📍 El Lugar
+        </h2>
+        <div class="text-center">
+          <p class="text-xl md:text-2xl text-gray-300 italic">
+            [Nombre del local pendiente]
+          </p>
+          <p class="text-lg text-gray-400 mt-2">
+            Donde el tiempo se detiene y la magia comienza.
+          </p>
+
+          <!-- Placeholder para Google Maps -->
+          <div
+            class="mt-8 w-full max-w-4xl mx-auto h-64 md:h-96 bg-gray-900 border border-gray-700 rounded-lg flex items-center justify-center">
+            <p class="text-gray-500">Google Maps se mostrará aquí</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Confirmación de Asistencia (RSVP) -->
+      <section class="w-full max-w-5xl mx-auto py-16 px-4">
+        <h2 class="font-playfair text-4xl md:text-5xl text-center font-bold mb-6">
+          💌 Confirma tu Asistencia
+        </h2>
+        <p class="text-center text-gray-400 max-w-lg mx-auto mb-10">
+          Tu presencia hace este momento inolvidable. Confirma antes del 15 de diciembre.
+        </p>
+
+        <div class="w-full max-w-lg mx-auto text-center">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdHQxF_e89TSxkdtO8AH_WXBouCaDfJXgSmi0CosmLUATTxdw/viewform?usp=sf_link"
+            target="_blank" rel="noopener noreferrer"
+            class="inline-block px-8 py-3 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-lg text-lg font-montserrat font-semibold tracking-wider uppercase cursor-pointer text-white no-underline hover:shadow-lg hover:shadow-violet-500/50 hover:scale-105 transition-all duration-300">
+            Confirmar Asistencia
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Cierre -->
+    <footer class="w-full py-24 bg-black text-center">
+      <p class="font-playfair text-2xl md:text-3xl text-gray-400 italic opacity-70">
+        Una vez en la vida. Una noche. Un recuerdo eterno.
+      </p>
+    </footer>
+  </section>
+
+  <!-- 4. Carga de tu Lógica JavaScript -->
+  <script src="script.js"></script>
+
 </body>
+
 </html>
