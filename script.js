@@ -108,3 +108,60 @@ document.addEventListener("DOMContentLoaded", () => {
   createParticles("particle-background", 80);
   createParticles("main-particle-background", 50);
 });
+// -----------------------------
+// 5️⃣ INVITADOS DE HONOR (crea las tarjetas con foto)
+// -----------------------------
+function renderGuestList() {
+  const guestContainer = document.getElementById("guest-list");
+  if (!guestContainer) return;
+
+  const guests = [
+    { name: "Alejandro", photo: "assets/invitados/alejandro.jpg" },
+    { name: "Nacho Rueda", photo: "assets/invitados/nacho_rueda.jpg" },
+    { name: "Masca y Mafer", photo: "assets/invitados/masca_mafer.jpg" },
+    { name: "Gabi", photo: "assets/invitados/gabi.jpg" },
+    { name: "Vicente", photo: "assets/invitados/vicente.jpg" },
+    { name: "Alex", photo: "assets/invitados/alex.jpg" },
+    { name: "Nacho Moral", photo: "assets/invitados/nacho_moral.jpg" },
+    { name: "Jaime e Irene", photo: "assets/invitados/jaime_irene.jpg" },
+    { name: "Danii Rovi", photo: "assets/invitados/danii.jpg" },
+    { name: "Irene Murillo", photo: "assets/invitados/irene_murillo.jpg" },
+    { name: "Sofía Amezcua", photo: "assets/invitados/sofia_amezcua.jpg" },
+    { name: "Criss", photo: "assets/invitados/criss.jpg" },
+    { name: "Teresa", photo: "assets/invitados/teresa.jpg" },
+    { name: "Sofía González", photo: "assets/invitados/sofia_gonzalez.jpg" },
+    { name: "Fausto", photo: "assets/invitados/fausto.jpg" },
+    { name: "Meli", photo: "assets/invitados/meli.jpg" },
+    { name: "Frida", photo: "assets/invitados/frida.jpg" },
+    { name: "Patri", photo: "assets/invitados/patri.jpg" }
+  ];
+
+  guestContainer.innerHTML = guests
+    .map(g => `
+      <div class="flex flex-col items-center text-center p-4 border border-gray-700 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-violet-500/40 hover:border-violet-400">
+        <img src="${g.photo}" alt="${g.name}" class="w-24 h-24 rounded-full object-cover mb-3 border-2 border-white shadow-md hover:shadow-violet-400 transition-all duration-300">
+        <h3 class="font-playfair text-xl font-semibold">${g.name}</h3>
+      </div>
+    `)
+    .join("");
+}
+
+// Ejecuta la función cuando se entra a la pantalla principal
+enterButton?.addEventListener("click", () => {
+  countdownScreen.classList.add("hidden");
+  portalScreen.classList.remove("hidden");
+
+  const circle = document.querySelector(".portal-circle");
+  const text = document.querySelector(".portal-text");
+
+  circle.classList.add("animate-portal-grow");
+  text.classList.add("animate-fade-in");
+
+  setTimeout(() => {
+    portalScreen.classList.add("hidden");
+    mainScreen.classList.remove("hidden");
+    console.log("✨ Portal completado, mostrando invitación principal");
+
+    renderGuestList(); // <--- 💥 Aquí genera los invitados
+  }, 3000);
+});
