@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const errorMessage = document.getElementById("error-message");
   const enterButton = document.getElementById("enter-button");
 
-  // 🔐 LOGIN
+  // LOGIN
   unlockButton?.addEventListener("click", () => {
     const entered = passwordInput.value.trim();
     if (entered === PASSWORD) {
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ⏳ CUENTA REGRESIVA
+  // CUENTA REGRESIVA
   function startCountdown() {
     const d = document.getElementById("countdown-days");
     const h = document.getElementById("countdown-hours");
@@ -56,32 +56,24 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(updateCountdown, 1000);
   }
 
-  // 🚪 PORTAL DE TRANSICIÓN
+  // PORTAL
   enterButton?.addEventListener("click", () => {
-    console.log("🌌 Entrando al portal...");
-
     countdownScreen.classList.add("hidden");
     portalScreen.classList.remove("hidden");
 
     const circle = document.querySelector(".portal-circle");
     const text = document.querySelector(".portal-text");
-
     circle.classList.add("animate-portal-grow");
     text.classList.add("animate-fade-in");
 
     setTimeout(() => {
       portalScreen.classList.add("hidden");
       mainScreen.classList.remove("hidden");
-
-      // 🧠 Espera breve y luego carga los invitados
-      setTimeout(() => {
-        renderGuestList();
-        console.log("👑 Invitados renderizados correctamente");
-      }, 300);
+      setTimeout(renderGuestList, 300);
     }, 3000);
   });
 
-  // 👑 INVITADOS DE HONOR
+  // INVITADOS
   function renderGuestList() {
     const guestContainer = document.getElementById("guest-list");
     if (!guestContainer) return;
@@ -90,13 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
       { name: "Alejandro", photo: "assets/invitados/alejandro.jpg" },
       { name: "Nacho Rueda", photo: "assets/invitados/nacho_rueda.jpg" },
       { name: "Irene Murillo", photo: "assets/invitados/irene_murillo.jpg" },
-      { name: "Sofía Amezcua", photo: "assets/invitados/sofia_amezcua.jpg" },
-      { name: "Vicente", photo: "assets/invitados/vicente.jpg" },
-      { name: "Alex", photo: "assets/invitados/alex.jpg" },
-      { name: "Meli", photo: "assets/invitados/meli.jpg" },
-      { name: "Fausto", photo: "assets/invitados/fausto.jpg" },
-      { name: "Teresa", photo: "assets/invitados/teresa.jpg" },
-      { name: "Criss", photo: "assets/invitados/criss.jpg" }
+      { name: "Sofía Amezcua", photo: "assets/invitados/sofia_amezcua.jpg" }
     ];
 
     guestContainer.innerHTML = guests.map((g, i) => `
@@ -108,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `).join("");
   }
 
-  // ✨ PARTÍCULAS
+  // PARTÍCULAS
   createParticles("particle-background", 80);
   createParticles("main-particle-background", 50);
 
