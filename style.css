@@ -1,142 +1,40 @@
-body {
-  margin: 0;
-  background: radial-gradient(ellipse at center, #000 0%, #111 100%);
-  color: white;
-  font-family: "Montserrat", sans-serif;
-  text-align: center;
-  overflow-x: hidden;
+/* Fondo partículas */
+#particle-background,
+#main-particle-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
 }
 
-.hidden {
-  display: none;
-}
-
-.titulo {
-  font-size: 3em;
-  margin-top: 15vh;
-  animation: glow 3s infinite alternate;
-}
-
-.titulo span {
-  color: #fff;
-  text-shadow: 0 0 20px #a78bfa, 0 0 40px #c084fc;
-}
-
-@keyframes glow {
-  from {
-    text-shadow: 0 0 10px #fff;
-  }
-
-  to {
-    text-shadow: 0 0 40px #c084fc;
-  }
-}
-
-input,
-select,
-button {
-  margin: 10px;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  font-size: 1em;
-}
-
-input,
-select {
-  width: 250px;
-}
-
-button {
-  background-color: white;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px #fff;
-}
-
-.error {
-  color: #ff6b6b;
-}
-
-#countdown {
-  font-size: 2em;
-  margin: 20px 0;
-  text-shadow: 0 0 10px #fff;
-}
-
-footer {
-  margin-top: 30px;
-  font-style: italic;
-  color: #aaa;
-}
-
-/* Invitados con fotos circulares */
-#guest-list {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 20px;
-  padding: 0;
-  margin: 30px auto;
-  max-width: 800px;
-}
-
-.guest-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
-  padding: 10px;
-  transition: transform 0.3s, box-shadow 0.3s;
-  animation: fadeIn 1s ease forwards;
-  opacity: 0;
-}
-
-@keyframes fadeIn {
-  from {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.guest-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-}
-
-.guest-photo {
-  width: 90px;
-  height: 90px;
+.particle {
+  position: absolute;
+  background: white;
   border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #fff;
-  margin-bottom: 10px;
-  transition: box-shadow 0.3s;
+  opacity: 0.2;
+  animation: floatUp linear infinite;
 }
 
-.guest-card:hover .guest-photo {
-  box-shadow: 0 0 15px #c084fc;
+@keyframes floatUp {
+  0% {
+    transform: translateY(0);
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(-100vh);
+    opacity: 0.2;
+  }
 }
 
-.guest-card p {
-  font-size: 0.9em;
-  margin: 0;
-  color: #fff;
-}
-
-/* ✨ Efectos del portal */
+/* Portal */
 .portal-background {
   position: absolute;
   width: 100%;
@@ -196,52 +94,30 @@ footer {
 }
 
 @keyframes fade-in {
-  0% {
+  from {
     opacity: 0;
   }
 
-  100% {
+  to {
     opacity: 1;
   }
 }
 
-/* Partículas de fondo */
-#particle-background,
-#main-particle-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 0;
+/* Invitados */
+.guest-card {
+  opacity: 0;
+  transform: scale(0.95);
+  animation: fadeUp 0.6s forwards;
 }
 
-.particle {
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.2;
-  animation: floatUp linear infinite;
-}
-
-@keyframes floatUp {
-  0% {
-    transform: translateY(0);
-    opacity: 0.2;
-  }
-
-  50% {
-    opacity: 0.8;
-  }
-
-  100% {
-    transform: translateY(-100vh);
-    opacity: 0.2;
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
-/* Error shake */
+/* Shake error */
 @keyframes shake {
 
   0%,

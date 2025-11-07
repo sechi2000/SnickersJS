@@ -16,7 +16,7 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap"
     rel="stylesheet">
 
-  <!-- Tus estilos -->
+  <!-- CSS Personalizado -->
   <link rel="stylesheet" href="style.css">
 
   <script>
@@ -35,10 +35,9 @@
 
 <body class="bg-black text-white font-montserrat min-h-screen overflow-x-hidden">
 
-  <!-- Fondo de partículas -->
   <div id="particle-background"></div>
 
-  <!-- PANTALLA 1: DESBLOQUEO -->
+  <!-- PANTALLA 1: LOGIN -->
   <main id="login-screen"
     class="min-h-screen w-full flex flex-col items-center justify-center p-4 relative z-10 transition-all duration-500">
     <div class="flex flex-col items-center text-center max-w-lg">
@@ -74,32 +73,20 @@
   <section id="countdown-screen"
     class="min-h-screen w-full flex-col items-center justify-center p-4 relative z-10 hidden">
     <div class="flex flex-col items-center text-center">
-      <h2 class="font-playfair text-4xl md:text-5xl font-bold mb-12">
-        Cuenta regresiva
-      </h2>
-
+      <h2 class="font-playfair text-4xl md:text-5xl font-bold mb-12">Cuenta regresiva</h2>
       <div class="flex space-x-3 md:space-x-6">
-        <div class="countdown-box">
-          <span id="countdown-days" class="countdown-value">00</span>
-          <span class="countdown-label">Días</span>
-        </div>
+        <div class="countdown-box"><span id="countdown-days" class="countdown-value">00</span><span
+            class="countdown-label">Días</span></div>
         <span class="countdown-separator">:</span>
-        <div class="countdown-box">
-          <span id="countdown-hours" class="countdown-value">00</span>
-          <span class="countdown-label">Horas</span>
-        </div>
+        <div class="countdown-box"><span id="countdown-hours" class="countdown-value">00</span><span
+            class="countdown-label">Horas</span></div>
         <span class="countdown-separator">:</span>
-        <div class="countdown-box">
-          <span id="countdown-minutes" class="countdown-value">00</span>
-          <span class="countdown-label">Min.</span>
-        </div>
+        <div class="countdown-box"><span id="countdown-minutes" class="countdown-value">00</span><span
+            class="countdown-label">Min.</span></div>
         <span class="countdown-separator">:</span>
-        <div class="countdown-box">
-          <span id="countdown-seconds" class="countdown-value">00</span>
-          <span class="countdown-label">Seg.</span>
-        </div>
+        <div class="countdown-box"><span id="countdown-seconds" class="countdown-value">00</span><span
+            class="countdown-label">Seg.</span></div>
       </div>
-
       <button id="enter-button"
         class="mt-16 px-8 py-3 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-lg text-lg font-montserrat font-semibold tracking-wider uppercase cursor-pointer hover:shadow-lg hover:shadow-violet-500/50 hover:scale-105 transition-all duration-300">
         Entrar a la invitación
@@ -114,15 +101,13 @@
     <p class="portal-text">Accediendo al universo JULS...</p>
   </section>
 
-  <!-- PANTALLA 4: INVITACIÓN PRINCIPAL -->
+  <!-- PANTALLA 4: INVITACIÓN -->
   <section id="main-screen" class="w-full text-white font-montserrat hidden">
     <header
       class="w-full min-h-[70vh] flex flex-col items-center justify-center text-center p-4 relative overflow-hidden">
       <div id="main-particle-background"></div>
       <div class="z-10">
-        <h1 class="font-playfair text-7xl md:text-9xl font-bold text-white animate-pulse-glow">
-          JULS - 25
-        </h1>
+        <h1 class="font-playfair text-7xl md:text-9xl font-bold text-white animate-pulse-glow">JULS - 25</h1>
         <p class="text-lg md:text-2xl text-gray-300 mt-4 max-w-2xl">
           Hola chicos! Este año cumplo 25 años y me encantaría que me acompañéis a celebrar este gran día. Habrá
           picoteo, drinks y mucho amor. Porque los momentos bonitos solo tienen sentido si se comparten 💛
@@ -132,28 +117,26 @@
     </header>
 
     <main class="bg-black z-10 relative">
-      <!-- INVITADOS DE HONOR -->
+      <!-- INVITADOS -->
       <section class="w-full max-w-5xl mx-auto py-16 px-4">
-        <h2 class="font-playfair text-4xl md:text-5xl text-center font-bold mb-12">
-          👑 Invitados de Honor
-        </h2>
+        <h2 class="font-playfair text-4xl md:text-5xl text-center font-bold mb-12">👑 Invitados de Honor</h2>
         <div id="guest-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"></div>
       </section>
 
-      <!-- EL LUGAR -->
+      <!-- LUGAR -->
       <section class="w-full max-w-5xl mx-auto py-16 px-4">
         <h2 class="font-playfair text-4xl md:text-5xl text-center font-bold mb-12">📍 El Lugar</h2>
         <div class="text-center">
           <p class="text-xl md:text-2xl text-gray-300 italic">Vaiven a partir de las 20:00</p>
           <p class="text-lg text-gray-400 mt-2">Donde el tiempo se detiene y la magia comienza.</p>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d242.57541924881872!2d-3.698960943772168!3d40.44537274912609"
-            class="mt-8 w-full max-w-4xl mx-auto h-64 md:h-96 rounded-lg border border-gray-700" allowfullscreen=""
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3038.6640569913594!2d-3.699299323440613!3d40.44543585573939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4228f9999ec77b%3A0xfac3dc3b3d6043e2!2sVaiv%C3%A9n!5e0!3m2!1ses!2ses!4v1731008109171!5m2!1ses!2ses"
+            class="mt-8 w-full max-w-4xl mx-auto h-64 md:h-96 rounded-lg border border-gray-700" style="border:0"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </section>
 
-      <!-- RSVP -->
+      <!-- CONFIRMAR -->
       <section class="w-full max-w-5xl mx-auto py-16 px-4">
         <h2 class="font-playfair text-4xl md:text-5xl text-center font-bold mb-6">💌 Confirma tu Asistencia</h2>
         <p class="text-center text-gray-400 max-w-lg mx-auto mb-10">
@@ -176,9 +159,7 @@
     </footer>
   </section>
 
-  <!-- JavaScript principal -->
   <script src="script.js"></script>
-
 </body>
 
 </html>
