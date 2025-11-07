@@ -1,81 +1,115 @@
+// -----------------------------
+// CONFIGURACIÓN PRINCIPAL
+// -----------------------------
 const PASSWORD = "27122000";
 const EVENT_DATE = new Date("2025-12-27T00:00:00");
 
-const guests = [
-  { name: "Alejandro", photo: "assets/invitados/alejandro.jpg" },
-  { name: "Nacho Rueda", photo: "assets/invitados/nacho_rueda.jpg" },
-  { name: "Masca", photo: "assets/invitados/masca.jpg" },
-  { name: "Mafer", photo: "assets/invitados/mafer.jpg" },
-  { name: "Gabi Prima", photo: "assets/invitados/gabi_prima.jpg" },
-  { name: "Vicente", photo: "assets/invitados/vicente.jpg" },
-  { name: "Alex", photo: "assets/invitados/alex.jpg" },
-  { name: "Nacho Moral", photo: "assets/invitados/nacho_moral.jpg" },
-  { name: "Irene (Novia de Jaime)", photo: "assets/invitados/irene_jaime.jpg" },
-  { name: "Jaime", photo: "assets/invitados/jaime.jpg" },
-  { name: "Danii Rovi", photo: "assets/invitados/danii_rovi.jpg" },
-  { name: "Irene Murillo", photo: "assets/invitados/irene_murillo.jpg" },
-  { name: "Sofía Amezcua", photo: "assets/invitados/sofia_amezcua.jpg" },
-  { name: "Criss", photo: "assets/invitados/criss.jpg" },
-  { name: "Teresa", photo: "assets/invitados/teresa.jpg" },
-  { name: "Sofía González", photo: "assets/invitados/sofia_gonzalez.jpg" },
-  { name: "Fausto", photo: "assets/invitados/fausto.jpg" },
-  { name: "Meli", photo: "assets/invitados/meli.jpg" }
-];
+// Referencias a elementos
+const loginScreen = document.getElementById("login-screen");
+const countdownScreen = document.getElementById("countdown-screen");
+const portalScreen = document.getElementById("portal-screen");
+const mainScreen = document.getElementById("main-screen");
 
-document.getElementById("unlock").addEventListener("click", () => {
-  const input = document.getElementById("password").value;
-  const error = document.getElementById("error");
+const passwordInput = document.getElementById("password-input");
+const unlockButton = document.getElementById("unlock-button");
+const errorMessage = document.getElementById("error-message");
 
-  if (input === PASSWORD) {
-    document.getElementById("portal-container").classList.add("hidden");
-    document.getElementById("countdown-container").classList.remove("hidden");
+const enterButton = document.getElementById("enter-button");
+
+// -----------------------------
+// 1️⃣ LOGIN / DESBLOQUEO
+// -----------------------------
+unlockButton.addEventListener("click", () => {
+  const enteredPassword = passwordInput.value.trim();
+
+  if (enteredPassword === PASSWORD) {
+    errorMessage.classList.add("hidden");
+    loginScreen.classList.add("hidden");
+    countdownScreen.classList.remove("hidden");
     startCountdown();
   } else {
-    error.textContent = "Esa no es la fecha correcta... ¿seguro que me conoces tanto? 😉";
-    setTimeout(() => (error.textContent = ""), 2000);
+    errorMessage.classList.remove("hidden");
+    errorMessage.classList.add("animate-shake");
+    setTimeout(() => {
+      errorMessage.classList.remove("animate-shake");
+    }, 500);
   }
 });
 
+// -----------------------------
+// 2️⃣ CUENTA REGRESIVA
+// -----------------------------
 function startCountdown() {
-  const countdown = document.getElementById("countdown");
-  const interval = setInterval(() => {
+  const daysEl = document.getElementById("countdown-days");
+  const hoursEl = document.getElementById("countdown-hours");
+  const minutesEl = document.getElementById("countdown-minutes");
+  const secondsEl = document.getElementById("countdown-seconds");
+
+  function updateCountdown() {
     const now = new Date();
     const diff = EVENT_DATE - now;
+
     if (diff <= 0) {
-      clearInterval(interval);
-      countdown.textContent = "¡Ha llegado el gran día!";
-    } else {
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const m = Math.floor((diff / (1000 * 60)) % 60);
-      const s = Math.floor((diff / 1000) % 60);
-      countdown.textContent = `${d} días : ${h}h : ${m}m : ${s}s`;
+      daysEl.textContent = "00";
+      hoursEl.textContent = "00";
+      minutesEl.textContent = "00";
+      secondsEl.textContent = "00";
+      return;
     }
-  }, 1000);
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    daysEl.textContent = String(d).padStart(2, "0");
+    hoursEl.textContent = String(h).padStart(2, "0");
+    minutesEl.textContent = String(m).padStart(2, "0");
+    secondsEl.textContent = String(s).padStart(2, "0");
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 }
 
-document.getElementById("enterPortal").addEventListener("click", () => {
-  document.getElementById("countdown-container").classList.add("hidden");
-  document.getElementById("invite-container").classList.remove("hidden");
+// -----------------------------
+// 3️⃣ PORTAL ANIMADO
+// -----------------------------
+enterButton.addEventListener("click", () => {
+  countdownScreen.classList.add("hidden");
+  portalScreen.classList.remove("hidden");
 
-  const guestList = document.getElementById("guest-list");
-  guestList.innerHTML = "";
+  // Efecto de transición tipo "portal"
+  const circle = document.querySelector(".portal-circle");
+  const text = document.querySelector(".portal-text");
 
-  guests.forEach((guest, index) => {
-    const li = document.createElement("li");
-    li.classList.add("guest-card");
-    li.style.animationDelay = `${index * 0.1}s`;
+  circle.classList.add("animate-portal-grow");
+  text.classList.add("animate-fade-in");
 
-    const img = document.createElement("img");
-    img.src = guest.photo;
-    img.alt = guest.name;
-    img.classList.add("guest-photo");
-
-    const name = document.createElement("p");
-    name.textContent = guest.name;
-
-    li.appendChild(img);
-    li.appendChild(name);
-    guestList.appendChild(li);
-  });
+  setTimeout(() => {
+    portalScreen.classList.add("hidden");
+    mainScreen.classList.remove("hidden");
+  }, 3000);
 });
+
+// -----------------------------
+// 4️⃣ EFECTOS DE FONDO
+// -----------------------------
+createParticles("particle-background", 80);
+createParticles("main-particle-background", 50);
+
+function createParticles(containerId, count) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  for (let i = 0; i < count; i++) {
+    const particle = document.createElement("span");
+    particle.classList.add("particle");
+    particle.style.top = `${Math.random() * 100}%`;
+    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.width = `${Math.random() * 3 + 1}px`;
+    particle.style.height = particle.style.width;
+    particle.style.animationDuration = `${Math.random() * 5 + 3}s`;
+    container.appendChild(particle);
+  }
+}
