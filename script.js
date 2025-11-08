@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       portalScreen.classList.add("hidden");
       mainScreen.classList.remove("hidden");
-      setTimeout(renderGuestList, 300);
+      setTimeout(() => renderGuestList(), 300);
     }, 3000);
   });
 
@@ -100,13 +100,22 @@ document.addEventListener("DOMContentLoaded", () => {
       { name: "Frida y Patri", photo: "assets/invitados/frida.jpg" }
     ];
 
-    guestContainer.innerHTML = guests.map((g, i) => `
-      <div class="guest-card flex flex-col items-center text-center p-4 border border-gray-700 rounded-lg hover:scale-105 hover:shadow-lg hover:shadow-violet-500/40 hover:border-violet-400 transition-all duration-300"
-           style="animation-delay:${i * 0.1}s">
-        <img src="${g.photo}" alt="${g.name}" class="w-24 h-24 rounded-full object-cover mb-3 border-2 border-white shadow-md hover:shadow-violet-400 transition-all duration-300">
-        <h3 class="font-playfair text-xl font-semibold">${g.name}</h3>
-      </div>
-    `).join("");
+    guestContainer.innerHTML = guests
+      .map(
+        (g, i) => `
+        <div 
+          class="guest-card flex flex-col items-center text-center p-4 border border-gray-700 rounded-lg hover:scale-105 hover:shadow-lg hover:shadow-violet-500/40 hover:border-violet-400 transition-all duration-300"
+          style="animation-delay:${i * 0.1}s"
+        >
+          <img 
+            src="${g.photo}" 
+            alt="${g.name}" 
+            class="w-24 h-24 rounded-full object-cover mb-3 border-2 border-white shadow-md hover:shadow-violet-400 transition-all duration-300"
+          >
+          <h3 class="font-playfair text-xl font-semibold">${g.name}</h3>
+        </div>`
+      )
+      .join("");
   }
 
   // PARTÍCULAS
@@ -122,8 +131,9 @@ document.addEventListener("DOMContentLoaded", () => {
       particle.classList.add("particle");
       particle.style.top = `${Math.random() * 100}%`;
       particle.style.left = `${Math.random() * 100}%`;
-      particle.style.width = `${Math.random() * 3 + 1}px`;
-      particle.style.height = particle.style.width;
+      const size = Math.random() * 3 + 1;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
       particle.style.animationDuration = `${Math.random() * 6 + 4}s`;
       container.appendChild(particle);
     }
