@@ -82,21 +82,21 @@ document.addEventListener("DOMContentLoaded", () => {
       { name: "Alejandro", photo: "assets/invitados/alejandro.jpg" },
       { name: "Nacho Rueda", photo: "assets/invitados/nacho_rueda.jpg" },
       { name: "Irene Murillo", photo: "assets/invitados/murillo.jpg" },
-      { name: "Sofía Amezcua", photo: "assets/invitados/sofia.jpg" }
-      { name: "Meli", photo: "assets/invitados/meli.jpg" }
-      { name: "Fausto", photo: "assets/invitados/fausto.jpg" }
-      { name: "Sofía Gonzalez", photo: "assets/invitados/gonzalez.jpg" }
-      { name: "Daniel", photo: "assets/invitados/dani.jpg" }
-      { name: "Masca", photo: "assets/invitados/masca.jpg" }
-      { name: "Tere", photo: "assets/invitados/tere.jpg" }
-      { name: "Crisss", photo: "assets/invitados/cris.jpg" }
-      { name: "Irene", photo: "assets/invitados/irenej.jpg" }
-      { name: "Nacho Moral", photo: "assets/invitados/nacho.jpg" }
-      { name: "Gabi", photo: "assets/invitados/gabi.jpg" }
-      { name: "Jimmy", photo: "assets/invitados/jimmy.jpg" }
-      { name: "Vicente", photo: "assets/invitados/vicente.jpg" }
-      { name: "Alex", photo: "assets/invitados/alex.jpg" }
-      { name: "Mafer", photo: "assets/invitados/mafer.jpg" }
+      { name: "Sofía Amezcua", photo: "assets/invitados/sofia.jpg" },
+      { name: "Meli", photo: "assets/invitados/meli.jpg" },
+      { name: "Fausto", photo: "assets/invitados/fausto.jpg" },
+      { name: "Sofía Gonzalez", photo: "assets/invitados/gonzalez.jpg" },
+      { name: "Daniel", photo: "assets/invitados/dani.jpg" },
+      { name: "Masca", photo: "assets/invitados/masca.jpg" },
+      { name: "Tere", photo: "assets/invitados/tere.jpg" },
+      { name: "Crisss", photo: "assets/invitados/cris.jpg" },
+      { name: "Irene", photo: "assets/invitados/irenej.jpg" },
+      { name: "Nacho Moral", photo: "assets/invitados/nacho.jpg" },
+      { name: "Gabi", photo: "assets/invitados/gabi.jpg" },
+      { name: "Jimmy", photo: "assets/invitados/jimmy.jpg" },
+      { name: "Vicente", photo: "assets/invitados/vicente.jpg" },
+      { name: "Alex", photo: "assets/invitados/alex.jpg" },
+      { name: "Mafer", photo: "assets/invitados/mafer.jpg" },
       { name: "Frida y Patri", photo: "assets/invitados/frida.jpg" }
     ];
 
