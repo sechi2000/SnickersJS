@@ -97,7 +97,8 @@ document.addEventListener("DOMContentLoaded", () => {
       { name: "Vicente", photo: "assets/invitados/vicente.jpg" },
       { name: "Alex", photo: "assets/invitados/alex.jpg" },
       { name: "Mafer", photo: "assets/invitados/mafer.jpg" },
-      { name: "Frida y Patri", photo: "assets/invitados/frida.jpg" }
+      { name: "Patri", photo: "assets/invitados/patr.jpg" },
+      { name: "Frida", photo: "assets/invitados/frida.jpg" }
     ];
 
     guestContainer.innerHTML = guests
