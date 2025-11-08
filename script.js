@@ -98,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
       { name: "Alex", photo: "assets/invitados/alex.jpg" }
       { name: "Mafer", photo: "assets/invitados/mafer.jpg" }
       { name: "Frida y Patri", photo: "assets/invitados/frida.jpg" }
-
     ];
 
     guestContainer.innerHTML = guests.map((g, i) => `
