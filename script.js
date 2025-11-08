@@ -97,7 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
       { name: "Vicente", photo: "assets/invitados/vicente.jpg" },
       { name: "Alex", photo: "assets/invitados/alex.jpg" },
       { name: "Mafer", photo: "assets/invitados/mafer.jpg" },
-      { name: "Patri", photo: "assets/invitados/patricia.jpg" },
       { name: "Frida", photo: "assets/invitados/frida.jpg" }
     ];
 
